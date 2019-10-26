@@ -220,20 +220,20 @@ def timsort(arr):
 ###########################################################################
 # Intro Sort
 def heapsort():
-    global trc, cmp
-    global arr
-    h = []
-    # building the heap
+    global trc, cmp # variáveis globais de troca e comparações
+    global arr # Array de valores
+    h = [] # vetor vazio
+    # construindo a pilha
     for value in arr:
         trc += 1
         heappush(h, value)
     arr = []
-    # extracting the sorted elements one by one
+    # extraindo os elementos ordenados um por um
     trc += len(h)
     arr = arr + [heappop(h) for i in range(len(h))]
 
 
-# The main function to sort the data using insertion sort algorithm
+# A função principal para ordenar os dados utilizando o modelo de inserção como default
 def insertionsort_intro(begin, end):
     global trc, cmp
     left = begin
@@ -241,9 +241,9 @@ def insertionsort_intro(begin, end):
     # Traverse through 1 to len(arr)
     for i in range(left + 1, right + 1):
         key = arr[i]
-        # Move elements of arr[0..i-1], that are
-        # greater than key, to one position ahead
-        # of their current position
+        # Move elementos do array[0..i-1], que são
+        # maiores que a chave, para uma posição adiante
+        # da sua respectiva posição
         j = i - 1
         cmp += 2
         while j >= left and arr[j] > key:
@@ -252,26 +252,25 @@ def insertionsort_intro(begin, end):
             j = j - 1
         trc += 1
         arr[j + 1] = key
-    # This function takes last element as pivot, places
-
-
-# the pivot element at its correct position in sorted
-# array, and places all smaller (smaller than pivot)
-# to left of pivot and all greater elements to right
-# of pivot
+   
+# Essa função pega o ultimo elemento como pivot, aloca
+# o elemento do pivot em sua posição correta no array
+# ordenado, e aloca espaços para todos os elementos menores que o pivot
+# na sua esquerda e todos os maiores a direita
+# do pivot
 def partition(low, high):
     global trc, cmp
     global arr
     # pivot
     pivot = arr[high]
-    # index of smaller element
+    # índice do menor elemento
     i = low - 1
     for j in range(low, high):
-        # If the current element is smaller than or
-        # equal to the pivot
+        # Se o elemento correspondente é menor ou
+        # igual ao pivot
         cmp += 1
         if arr[j] <= pivot:
-            # increment index of smaller element
+            # incrementa o índice do menor elemento
             i = i + 1
             trc += 2
             (arr[i], arr[j]) = (arr[j], arr[i])
@@ -280,9 +279,9 @@ def partition(low, high):
     return i + 1
 
 
-# The function to find the median
-# of the three elements in
-# in the index a, b, d
+# Função que mede a mediana
+# de três elementos
+# nos índices a,b,c
 def medianofthree(a, b, d):
     global trc, cmp
     global arr
@@ -308,43 +307,41 @@ def medianofthree(a, b, d):
     cmp += 2
     if A <= C <= B:
         return d
-
-    # The main function that implements Introsort
-
-
-# low --> Starting index,
-# high --> Ending index
-# depthLimit --> recursion level
+    
+# Função principal que implementa o Introsort
+# low --> Início do índice
+# high --> Fim do índice
+# depthLimit --> nível de recursão
 def introsortutil(begin, end, depthlimit):
     global trc, cmp
     global arr
     size = end - begin
     cmp += 1
     if size < 16:
-        # if the data set is small, call insertion sort
+        # se o tamanho dos dados for menor, método de inserção é chamado
         insertionsort_intro(begin, end)
         return
     cmp += 1
     if depthlimit == 0:
-        # if the recursion limit is occurred call heap sort
+        # se a recursão limite for ultrapassada heap sort é chamada
         heapsort()
         return
     pivot = medianofthree(begin, begin + size // 2, end)
     trc += 2
     (arr[pivot], arr[end]) = (arr[end], arr[pivot])
-    # partition_point is partitioning index,
-    # arr[partition_point] is now at right place
+    # partition_point é o índice de partição
+    # arr[partition_point] está no lugar certo
     partition_point = partition(begin, end)
-    # Separately sort elements before partition and after partition
+    # Separando os elementos ordenados antes e depois da partição
     introsortutil(begin, partition_point - 1, depthlimit - 1)
     introsortutil(partition_point + 1, end, depthlimit - 1)
 
 
-# A utility function to begin the Introsort module
+# Função de utilidade para dar início ao método de ordenação
 def introsortstart(begin, end):
     global trc, cmp
     trc = cmp = 0
-    # initialise the depthlimit as 2 * log(length(data))
+    # inicializa a profundidade limite como 2 * log(length(data))
     depthlimit = 2 * math.log2(end - begin)
     introsortutil(begin, end, depthlimit)
 
