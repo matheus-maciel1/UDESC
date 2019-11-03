@@ -13,12 +13,18 @@
 #   * Odd-Even Sort;
 #   * Intro Sort;
 #   * Cycle Sort.
+# Buscas:
+#   * Binária;
+#   * Sequencial.
 ###########################################################################
 # Imports
 import time
 import datetime
 import math  # intro Sort
+import random
 from heapq import heappush, heappop  # Intro Sort
+
+
 ###########################################################################
 
 
@@ -354,25 +360,57 @@ def introsort():
 
 
 ###########################################################################
+# Busca Sequencial
+def busca_sequencial(arr2, x):
+    z=0
+    for i in range(0, len(arr2)):
+        acs +=1
+        if arr2[i] == x:
+            z = 1
+            return true
+        else:
+            z=0
+        if z is 1:
+            print("O numero % s" % x % " foi encontrado!")
+        else:
+            print("O numero % s" % x % " não foi encontrado!")
+
+###########################################################################
+# Busca Binária
+def busca_bin(arr2,x):
+    esquerda, direita, tentativa = 0, len(vet), 1
+    while 1:
+        meio = (esquerda + direita) // 2
+        aux_num = vet[meio]
+        if num == aux_num:
+            return tentativa
+        elif num > aux_num:
+            esquerda = meio
+        else:
+            direita = meio
+        tentativa += 1
+
+
+###########################################################################
 
 
 # ================================================================================================== #
 # Abaixo segue a 'main'.
 # ================================================================================================== #
 
-
 tipo = ['aleatorio', 'ordenado', 'repetido', 'reverso', 'semiOrdenado']
 tam = [10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000]
 
-trc = cmp = 0
+acs = trc = cmp = 0  # trc = trocas cmp = comparações acs = acessos
 
-print('\nEsta aplicação implementa 6 tipos de algoritmos de ordenação em diferentes tamanhos de vetores.')
-z = int(input('\n -> Deseja executar os simples (1) ou complexos (2)?'))
+print(
+    '\nEsta aplicação implementa 6 tipos de algoritmos de ordenação em diferentes tamanhos de vetores e 2 tipos de algoritmos de busca.')
+z = int(input('\n -> Deseja executar:\nSimples (1)\nComplexos (2)\nBusca Sequencial (3)\nBusca Binária (4)?'))
 
 if z is 1:
-    for j in range(0, len(tam)):
-        for i in range(0, len(tipo)):
-            arch = tipo[i] + str(tam[j]) + '.txt'
+    for j in range(0, len(tam)):  # repetição para todos os tamanhos de vetores
+        for i in range(0, len(tipo)):  # repeticao para todos os tipos de vetores
+            arch = tipo[i] + str(tam[j]) + '.txt'  # define variavel arch de arquivo como o tipo (salvo no nome dos arquivos) + tamanho do vetor com a extensao txt
             with open(arch, 'r') as f:
                 arr = f.readlines()
                 f.close()
@@ -423,7 +461,7 @@ if z is 1:
                 time.sleep(0.5)
 
 
-else:
+elif z is 2:
     for j in range(0, len(tam)):
         for i in range(0, len(tipo)):
             arch = tipo[i] + str(tam[j]) + '.txt'
@@ -473,5 +511,50 @@ else:
                 # print('Resultado: ')
                 # for i in range(0, len(ord)):
                 #    print(ord[i], end=' ')
+
+elif z is 3:
+    for j in range(0, len(tam)):
+        for i in range(0, len(tipo)):
+            arch = tipo[i] + str(tam[j]) + '.txt'
+            with open(arch, 'r') as f:
+                arr = f.readlines()
+                f.close()
+                for i in range(0, len(arr)):
+                    arr[i] = int(arr[i])
+
+                arr1 = arr.copy()
+                rnd = random.choice(arr1)
+                print('\n-------------------------------------------')
+                print('Busca: Sequencial')
+                print('Arquivo: ', arch)
+                start = time.time()
+                while false:
+                    busca_sequencial(arr1,rnd)
+                end = time.time()
+                print('Tempo: ', end - start)
+                print('Acessos: ', acs)
+                time.sleep(0.5)
+else:
+    for j in range(0, len(tam)):
+        for i in range(0, len(tipo)):
+            arch = tipo[i] + str(tam[j]) + '.txt'
+            with open(arch, 'r') as f:
+                arr = f.readlines()
+                f.close()
+                for i in range(0, len(arr)):
+                    arr[i] = int(arr[i])
+
+                arr1 = arr.copy()
+                rnd = random.randint(0,len(arr1))
+                print('\n-------------------------------------------')
+                print('Busca: Binaria')
+                print('Arquivo: ', arch)
+                start = time.time()
+                while false:
+                    busca_binaria(arr1,rnd)
+                end = time.time()
+                print('Tempo: ', end - start)
+                print('Acessos: ', acs)
+                time.sleep(0.5)
 
 # End
