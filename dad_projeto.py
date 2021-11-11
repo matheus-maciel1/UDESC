@@ -2,7 +2,7 @@
 # Projeto de Estrutura de Dados II
 # Algoritmos de Ordenação / Busca Binária e Sequêncial
 #
-# Equipe: Eduardo Buba - Mateus Maciel - Luiz Roberto.
+# Equipe: Eduardo Buba - Matheus Maciel - Luiz Roberto.
 ###########################################################################
 # Relação de Algoritmos a Serem Implementados:
 # Simples:
